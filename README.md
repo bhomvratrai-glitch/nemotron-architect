@@ -3,6 +3,7 @@
 > **Autonomous Self-Healing AI Software Engineer**  
 > *Powered by **NVIDIA Nemotron 70B** served via **Nebius Token Factory** & Grounded by **Tavily Search**.*
 
+[![Live Web Studio](https://img.shields.io/badge/Live_Demo-Web_Studio-success?style=for-the-badge&logo=googlechrome)](https://bhomvratrai-glitch.github.io/nemotron-architect/)
 [![NVIDIA Nemotron](https://img.shields.io/badge/Model-NVIDIA%20Nemotron%2070B-76B900?style=for-the-badge&logo=nvidia)](https://nebius.com)
 [![Nebius Token Factory](https://img.shields.io/badge/Inference-Nebius%20Token%20Factory-7C3AED?style=for-the-badge)](https://nebius.com)
 [![Tavily Search](https://img.shields.io/badge/Grounding-Tavily%20AI-2563EB?style=for-the-badge)](https://tavily.com)
