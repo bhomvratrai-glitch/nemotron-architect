@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+function initNemotron() {
   const promptInput = document.getElementById("promptInput");
   const runBtn = document.getElementById("runBtn");
   const downloadBtn = document.getElementById("downloadBtn");
@@ -273,4 +273,10 @@ document.addEventListener("DOMContentLoaded", () => {
   downloadBtn.addEventListener("click", () => {
     window.location.href = "/api/download/zip";
   });
-});
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initNemotron);
+} else {
+  initNemotron();
+}
