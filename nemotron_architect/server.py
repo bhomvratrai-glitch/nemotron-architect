@@ -86,6 +86,9 @@ def get_report():
         "prompt": latest_report.prompt,
         "files": latest_report.files,
         "heal_attempts": latest_report.heal_attempts,
+        "diagram": latest_report.diagram,
+        "security_count": len(latest_report.security_findings),
+        "healed_diffs": latest_report.healed_diffs,
         "test_stdout": latest_report.test_results.stdout if latest_report.test_results else "",
         "test_stderr": latest_report.test_results.stderr if latest_report.test_results else "",
         "research": latest_report.research_summary

@@ -79,26 +79,35 @@
         <div class="card-header tabs-header">
           <div class="tabs-list" id="filesTabs">
             <button class="tab-btn active" data-tab="welcome">README.md</button>
+            <button class="tab-btn" id="diagramTabBtn">📐 Architecture Diagram</button>
           </div>
-          <div class="test-pill" id="testPill">
-            <span class="pill-dot"></span>
-            <span class="pill-text">Awaiting Execution</span>
+          <div class="header-status-group" style="display: flex; gap: 8px;">
+            <div class="test-pill" id="securityPill">
+              <span class="pill-dot" style="background:#10b981;"></span>
+              <span class="pill-text">Security: Clean</span>
+            </div>
+            <div class="test-pill" id="testPill">
+              <span class="pill-dot"></span>
+              <span class="pill-text">Awaiting Execution</span>
+            </div>
           </div>
         </div>
 
         <!-- Code Viewer Body -->
         <div class="code-viewer" id="codeViewer">
-          <pre><code id="codeContent"># ⚡ Welcome to Nemotron-Architect Studio
+          <pre id="preBlock"><code id="codeContent"># ⚡ Welcome to Nemotron-Architect Studio
 
 Nemotron-Architect is an Autonomous Self-Healing AI Engineer built for the **Nebius x NVIDIA Global AI Hackathon**.
 
 ### How it works:
 1. **Live Technical Research:** Queries the Tavily API to fetch current documentation & avoid deprecated patterns.
 2. **NVIDIA Nemotron Reasoning:** Nemotron 70B plans architecture, data structures, and edge cases.
-3. **Hermetic Sandbox Execution:** Automatically writes files, runs syntax checks, and executes pytest suites.
-4. **Autonomous Self-Healing Loop:** If a test fails, Nemotron analyzes the stack trace, applies surgical fixes, and verifies until 100% green!
+3. **AST Static Security Audit:** Scans code for dangerous functions and secrets before sandboxing.
+4. **Hermetic Sandbox Execution:** Automatically writes files, runs syntax checks, and executes pytest suites.
+5. **Autonomous Self-Healing Loop:** If a test fails, Nemotron analyzes the stack trace, applies surgical fixes, and verifies until 100% green!
 
 Type a requirement on the left or select a template, then click **Run Autonomous Engineer**.</code></pre>
+          <div id="diagramContainer" style="display: none; padding: 20px;" class="mermaid"></div>
         </div>
 
         <!-- Test Suite Summary Bar -->
@@ -112,6 +121,10 @@ Type a requirement on the left or select a template, then click **Run Autonomous
             <span class="stat-value" id="statHeals">0</span>
           </div>
           <div class="summary-stat">
+            <span class="stat-label">Security Findings:</span>
+            <span class="stat-value" id="statSec" style="color: var(--accent-green);">0 (Clean)</span>
+          </div>
+          <div class="summary-stat">
             <span class="stat-label">Verification:</span>
             <span class="stat-value" id="statStatus">Idle</span>
           </div>
@@ -120,6 +133,8 @@ Type a requirement on the left or select a template, then click **Run Autonomous
     </main>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
+

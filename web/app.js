@@ -36,11 +36,61 @@ document.addEventListener("DOMContentLoaded", () => {
     terminalLogs.scrollTop = terminalLogs.scrollHeight;
   }
 
+  const diagramTabBtn = document.getElementById("diagramTabBtn");
+  const preBlock = document.getElementById("preBlock");
+  const diagramContainer = document.getElementById("diagramContainer");
+  const securityPill = document.getElementById("securityPill");
+  const statSec = document.getElementById("statSec");
+
+  let currentDiagram = "";
+
+  if (window.mermaid) {
+    mermaid.initialize({ startOnLoad: false, theme: "neutral" });
+  }
+
+  // Diagram tab click
+  if (diagramTabBtn) {
+    diagramTabBtn.addEventListener("click", () => {
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      diagramTabBtn.classList.add("active");
+      preBlock.style.display = "none";
+      diagramContainer.style.display = "block";
+      if (currentDiagram) {
+        diagramContainer.innerHTML = currentDiagram;
+        diagramContainer.removeAttribute("data-processed");
+        if (window.mermaid) {
+          mermaid.run({ nodes: [diagramContainer] });
+        }
+      } else {
+        diagramContainer.textContent = "No diagram generated yet.";
+      }
+    });
+  }
+
   // Switch active file tab
   function renderTabs(files) {
     filesTabs.innerHTML = "";
     const paths = Object.keys(files);
     if (paths.length === 0) return;
+
+    // Add diagram button back
+    const diagBtn = document.createElement("button");
+    diagBtn.className = "tab-btn";
+    diagBtn.textContent = "📐 Architecture Diagram";
+    diagBtn.addEventListener("click", () => {
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      diagBtn.classList.add("active");
+      preBlock.style.display = "none";
+      diagramContainer.style.display = "block";
+      if (currentDiagram) {
+        diagramContainer.innerHTML = currentDiagram;
+        diagramContainer.removeAttribute("data-processed");
+        if (window.mermaid) {
+          mermaid.run({ nodes: [diagramContainer] });
+        }
+      }
+    });
+    filesTabs.appendChild(diagBtn);
 
     paths.forEach((path, index) => {
       const btn = document.createElement("button");
@@ -49,12 +99,16 @@ document.addEventListener("DOMContentLoaded", () => {
       btn.addEventListener("click", () => {
         document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
+        preBlock.style.display = "block";
+        diagramContainer.style.display = "none";
         codeContent.textContent = files[path];
       });
       filesTabs.appendChild(btn);
     });
 
     // Set first file content
+    preBlock.style.display = "block";
+    diagramContainer.style.display = "none";
     codeContent.textContent = files[paths[0]];
   }
 
@@ -129,10 +183,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (report.has_report) {
         currentFiles = report.files;
+        currentDiagram = report.diagram || "";
         renderTabs(currentFiles);
 
         statFiles.textContent = Object.keys(currentFiles).length;
         statHeals.textContent = report.heal_attempts;
+
+        if (statSec) {
+          const count = report.security_count || 0;
+          statSec.textContent = count === 0 ? "0 (Clean)" : `${count} Detected`;
+          statSec.style.color = count === 0 ? "var(--accent-green)" : "var(--accent-red)";
+        }
 
         if (report.success) {
           testPill.className = "test-pill passed";

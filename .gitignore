@@ -4,6 +4,7 @@ __pycache__/
 .pytest_cache/
 .env
 workspace_output/
+generated_project/
 *.egg-info/
 dist/
 build/
